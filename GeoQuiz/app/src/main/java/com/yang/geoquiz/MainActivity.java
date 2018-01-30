@@ -50,13 +50,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
+        mQuestionTextView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick (View v){
+                mCurrentIndex=(mCurrentIndex+1)% mQuestionBank.length;
+                updateQuestion();
+            }
+        });
 //        int question = mQuestionBank[mCurrentIndex].getTextResId();
 //        mQuestionTextView.setText(question);
 
 
         mTrueButton = (Button) findViewById(R.id.true_button);
         mTrueButton.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 //                Toast aToast = Toast.makeText(MainActivity.this, R.string.correct_toast, Toast.LENGTH_SHORT);
 //                aToast.setGravity(Gravity.TOP,0,250);
 //                aToast.show();
@@ -91,15 +99,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        mPreviousButton = (ImageButton) findViewById(R.id.previous_button);
-//        mPreviousButton.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick (View v){
-//                mCurrentIndex = (mCurrentIndex - 1) % mQuestionBank.length;
-//                updateQuestion();
-//            }
-//
-//        });
+        mPreviousButton = (ImageButton) findViewById(R.id.previous_button);
+        mPreviousButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick (View v){
+                if (mCurrentIndex == 0){
+                    mCurrentIndex= mQuestionBank.length - 1;
+                }else {
+                    mCurrentIndex = (mCurrentIndex-1) % mQuestionBank.length;
+                }
+
+                updateQuestion();
+
+
+            }
+
+        });
         updateQuestion();
 
     }
